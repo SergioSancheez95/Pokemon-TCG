@@ -1,0 +1,30 @@
+name: Check Pokemon Stock
+
+on:
+  schedule:
+    # Se ejecuta automáticamente cada 10 minutos
+    - cron: '*/10 * * * *'
+  workflow_dispatch: # Botón para probarlo a mano cuando quieras
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar librerías
+        run: |
+          pip install requests beautifulsoup4
+
+      - name: Ejecutar rastreador
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python tracker.py
