@@ -130,9 +130,6 @@ def main():
 
     print("--- INICIANDO RASTREO MULTITIENDA ---")
 
-    # TEST DE PRUEBA REAL:
-    evaluate_item("Caja Sobres 30 Aniversario (TEST PRUEBA)", "https://pokealhambra.com/shop/", "PokeAlhambra", True, current_state, {})
-
     check_mathom(current_state, old_state)
     check_woocommerce("PokeAlhambra", "https://pokealhambra.com/shop/", current_state, old_state)
     check_woocommerce("Mundo Distorsión", "https://mundodistorsion.es/product-category/30-aniversario/", current_state, old_state)
@@ -143,5 +140,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    old_state.update(current_state)
-    save_current_data(old_state)
