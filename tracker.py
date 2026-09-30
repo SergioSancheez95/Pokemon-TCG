@@ -202,6 +202,12 @@ def main():
     current_state = {}
 
     print("--- INICIANDO RASTREO MULTITIENDA ---")
+    
+    # === LÍNEA DE PRUEBA TEMPORAL ===
+    # Forzamos una alerta simulando que ha salido stock real:
+    evaluate_item("Caja Sobres 30 Aniversario (PRUEBA DE TEST)", "https://pokealhambra.com/shop/", "PokeAlhambra", True, current_state, {})
+    # ================================
+
     check_mathom(current_state, old_state)
     check_woocommerce("PokeAlhambra", "https://pokealhambra.com/shop/", current_state, old_state)
     check_woocommerce("Mundo Distorsión", "https://mundodistorsion.es/product-category/30-aniversario/", current_state, old_state)
@@ -209,9 +215,5 @@ def main():
     check_game(current_state, old_state)
     check_drim(current_state, old_state)
 
-    # Fusionamos estados y guardamos
     old_state.update(current_state)
     save_current_data(old_state)
-
-if __name__ == "__main__":
-    main()
