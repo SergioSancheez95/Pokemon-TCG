@@ -2,9 +2,11 @@ name: Check Pokemon Stock
 
 on:
   schedule:
-    # Se ejecuta automáticamente cada 10 minutos
     - cron: '*/10 * * * *'
-  workflow_dispatch: # Botón para probarlo a mano cuando quieras
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   check:
@@ -28,3 +30,11 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python tracker.py
+
+      - name: Guardar estado de productos
+        run: |
+          git config --global user.name "Stock Bot"
+          git config --global user.email "bot@github.com"
+          git add seen_products.json || true
+          git commit -m "Auto: Actualizar historial de stock" || true
+          git push || true
